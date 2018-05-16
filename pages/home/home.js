@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+
   },
 
   /**
@@ -38,11 +38,32 @@ Page({
         that.setData({ userInfo: res.userInfo })
      
         // console.log(app.globalData.userInfo);
-        that.login()
+  
+          that.loginCheck()
+
+          //that.login()
+
+        
       }
     })
   },
 
+  loginCheck: function() {
+    var that = this;
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjY0MzYyMzEsImV4cCI6MTUyNjYwOTAzMX0.sBbX3VE-kl3d7idNlG8y4EpIsV4I_0Ir7GWMNxn2FV8"
+    wx.request({
+      url: 'http://localhost:7001/api/login/check',
+      header: { authorization: 'Bearer '+ token },
+      method: 'GET',
+      success: function (res) {
+        if (res.data.status === 'ok') {
+          console.log("ok")
+        } else {
+          console.log("fail")
+        }
+      }
+    })
+  },
   login: function() {
     wx.login({
       success: function (res) {
@@ -63,7 +84,7 @@ Page({
             }
             let token = res.data.token
             wx.setStorageSync('token', token)
-            //console.log(wx.getStorageSync('token'))
+            console.log(wx.getStorageSync('token'))
           }, fail: function () {
             wx.showModal({
               title: '微信出错(login)',
