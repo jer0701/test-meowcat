@@ -34,7 +34,7 @@ Page({
     wx.getUserInfo({
       withCredentials: false,
       success: function (res) {
-        console.log(res);
+        console.log(JSON.stringify(res.userInfo));
         app.globalData.userInfo = res.userInfo
         that.setData({ userInfo: res.userInfo })
      
@@ -42,10 +42,10 @@ Page({
   
           //that.loginCheck()
 
-          //that.login()
+          that.login()
 
           //that.updateUserInfo();
-          that.getUserInfo();
+          //that.getUserInfo();
 
         
       }
@@ -54,12 +54,14 @@ Page({
 
   loginCheck: function() {
     var that = this;
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjY1MzgzMDYsImV4cCI6MTUyNjUzODM2Nn0.MS4AVH-xLQLlI9sfoSMxycLxP_nZgiNwJ-6zUWUZPdo";
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjcwODEzODUsImV4cCI6MTUyNzM0MDU4NX0.Y6D8D0qiQ0HCjFJKqhnLoVXDXoVms2huY0flm9NvjJ0";
     wx.request({
-      url: 'http://localhost:7001/api/login/check',
+      url: 'http://123.207.143.253:7001/api/login/check',
+      //url: 'http://localhost:7001/api/login/check',
       header: { authorization: token },
       method: 'GET',
       success: function (res) {
+        console.log(res);
         if (res.data.status === 'ok') {
           console.log("ok")
         } else {
@@ -75,7 +77,8 @@ Page({
         console.log(res.code);
         console.log(app.globalData.userInfo);
         wx.request({
-          url: 'http://localhost:7001/api/login',
+         url: 'http://123.207.143.253:7001/api/login',
+         //url: 'http://localhost:7001/api/login',
           method: 'POST',
           data: {
             code: res.code,
@@ -113,10 +116,11 @@ Page({
         console.log(app.globalData.userInfo);
 
         var userInfo = app.globalData.userInfo;
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjY5NTIyMzIsImV4cCI6MTUyNzIxMTQzMn0.Grt8d2WquAiNBb9L9cQRb7mA2F5laZ1oX11uxvfDWrE";
-        userInfo.birthdate = new Date("1994/07/01 07:30:00");
+        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjcwODEzODUsImV4cCI6MTUyNzM0MDU4NX0.Y6D8D0qiQ0HCjFJKqhnLoVXDXoVms2huY0flm9NvjJ0";
+        userInfo.gender = 2;
         wx.request({
-          url: 'http://localhost:7001/api/userinfo',
+          //url: 'http://localhost:7001/api/userinfo',
+          url: 'http://123.207.143.253:7001/api/userinfo',
           header: { authorization: token },
           method: 'POST',
           data: {
@@ -139,9 +143,10 @@ Page({
   },
 
   getUserInfo: function() {
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjY5NTIyMzIsImV4cCI6MTUyNzIxMTQzMn0.Grt8d2WquAiNBb9L9cQRb7mA2F5laZ1oX11uxvfDWrE";
+    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6ImQyZWU4MzViNDc2MjVjOTFiMjE1ZmVjZTU3ZGJmYTBmNDAxZThhZDciLCJpYXQiOjE1MjcwODEzODUsImV4cCI6MTUyNzM0MDU4NX0.Y6D8D0qiQ0HCjFJKqhnLoVXDXoVms2huY0flm9NvjJ0";
     wx.request({
-      url: 'http://localhost:7001/api/userinfo',
+      //url: 'http://localhost:7001/api/userinfo',
+      url: 'http://123.207.143.253:7001/api/userinfo',
       method: 'GET',
       header: { authorization: token },
       data: {
