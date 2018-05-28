@@ -77,7 +77,7 @@ Page({
         console.log(res.code);
         console.log(app.globalData.userInfo);
         wx.request({
-         url: 'http://123.207.143.253:7001/api/login',
+         url: 'https://cat.tyqprivateweb.cn/api/login',
          //url: 'http://localhost:7001/api/login',
           method: 'POST',
           data: {
